@@ -1,0 +1,12 @@
+name: Test Action with Email
+
+on:
+  workflow_dispatch: # Allows manual triggering of the action
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Include email 23f1000751@ds.study.iitm.ac.in
+        run: echo "Hello, world! The action is running successfully."
