@@ -1,0 +1,26 @@
+name: Daily Commit
+
+on:
+  schedule:
+    # Runs at 00:00 UTC every day (set to your preferred time in cron syntax)
+    - cron: "0 0 * * *"
+  workflow_dispatch:  # Allows manual triggers as well
+
+jobs:
+  daily-commit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Allow the action to commit changes
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4  # This checks out your repository so we can make changes
+
+      - name: Add a daily commit with my email (23f1000751@ds.study.iitm.ac.in)
+        run: |
+          echo "Adding a daily commit to track activity" > daily_commit.txt
+          git config --local user.email "23f1000751@ds.study.iitm.ac.in"
+          git config --local user.name "DevSync Bot"
+          git add daily_commit.txt  # Adding the file to the commit
+          git commit -m "Daily commit update [skip ci]" || exit 0  # Commit changes, skip CI to prevent infinite loops
+          git push
